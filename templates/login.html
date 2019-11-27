@@ -2,36 +2,29 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Login Pet</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 </head>
 
 <body>
     <div class="container mt-4">
-        <form action="submit", method="POST">{% csrf_token %}
+        <form action="submit" , method="POST">{% csrf_token %}
             <h2>SOS Animais</h2>
             <div class="form-group">
                 <label for="username">Usuário</label>
-                <input type="text", class="form-control" id="username" name="username"
-                placeholder="Username">
+                <input type="text" , class="form-control" id="username" name="username" placeholder="Username">
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password", class="form-control" id="password" name="password"
-                placeholder="Senha">
+                <input type="password" , class="form-control" id="password" name="password" placeholder="Senha">
             </div>
-                
-                {% for message in messages %}
-                <div class="alert alert-danger">
-                    <strong>Error!</strong> {{ message }}
-                </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary">Logar</button>
+
+            {% for message in messages %}
+            <div class="alert alert-danger">
+                <strong>Error!</strong> {{ message }}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Logar</button>
         </form>
     </div>
 </body>

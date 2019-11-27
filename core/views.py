@@ -5,8 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
-
-
 from .models import Pet
 
 
@@ -15,8 +13,12 @@ from .models import Pet
 @login_required(login_url='/login/')
 def list_all_pets(request):
     pet = Pet.objects.filter(active=True)
-    print(pet.query)
-    return render(request, 'list.html', {'pet':pet})
+    return render(request, 'list.html', {'pet': pet})
+
+
+def list_user_pets(request):
+    pet = Pet.objects.filter(active=True, user=request.user)
+    return render(request, 'list.html', {'pet': pet})
 
 
 def logout_user(request):

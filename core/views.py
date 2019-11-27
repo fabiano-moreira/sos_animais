@@ -4,11 +4,37 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+# Create your views here.
 
 from .models import Pet
 
 
-# Create your views here.
+@login_required(login_url='/login/')
+def register_pet(request):
+    return render(request, 'register-pet.html')
+
+
+@login_required(login_url='/login/')
+def set_pet(request):
+    city = request.POST.get('city')
+    email = request.POST.get('email')
+    phone = request.POST.get('phone')
+    description = request.POST.get('description')
+    photo = request.FILES.get('file')
+    user = request.user
+    pet = Pet.objects.create(email=email, phone=phone, description=description,
+                             photo=photo, city=city, user=user)
+    url = '/pet/detail/{}/'.format(pet.id)
+    return redirect(url)
+
+
+@login_required(login_url='/login/')
+def delete_pet(request, id):
+    pet = Pet.objects.get(id=id)
+    if pet.user == request.user:
+        pet.delete()
+    return redirect('/')
+
 
 @login_required(login_url='/login/')
 def list_all_pets(request):
@@ -20,10 +46,12 @@ def list_user_pets(request):
     pet = Pet.objects.filter(active=True, user=request.user)
     return render(request, 'list.html', {'pet': pet})
 
+
 def pet_detail(request, id):
     pet = Pet.objects.get(active=True, id=id)
     print(pet.id)
-    return render(request, 'pet.html', {'pet':pet})
+    return render(request, 'pet.html', {'pet': pet})
+
 
 def logout_user(request):
     print(request.user)

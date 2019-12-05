@@ -20,10 +20,12 @@ def set_pet(request):
     email = request.POST.get('email')
     phone = request.POST.get('phone')
     description = request.POST.get('description')
-    photo = request.FILES.get('file')
+    file = request.FILES.get('file')
     user = request.user
+    pet_id = request.POST.get('pet_id')
+    
     pet = Pet.objects.create(email=email, phone=phone, description=description,
-                             photo=photo, city=city, user=user)
+                             photo=file, city=city, user=user)
     url = '/pet/detail/{}/'.format(pet.id)
     return redirect(url)
 
@@ -42,6 +44,7 @@ def list_all_pets(request):
     return render(request, 'list.html', {'pet': pet})
 
 
+@login_required(login_url='/login/')
 def list_user_pets(request):
     pet = Pet.objects.filter(active=True, user=request.user)
     return render(request, 'list.html', {'pet': pet})
@@ -52,9 +55,8 @@ def pet_detail(request, id):
     print(pet.id)
     return render(request, 'pet.html', {'pet': pet})
 
-
+@login_required(login_url='/login/')
 def logout_user(request):
-    print(request.user)
     logout(request)
     return redirect('/login')
 

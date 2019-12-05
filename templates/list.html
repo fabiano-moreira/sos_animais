@@ -6,7 +6,7 @@
     .polaroid {
         width: 250px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-        
+
         text-align: center;
     }
 
@@ -23,13 +23,13 @@
         {% for p in pet  %}
         <div class="col-sm-4">
             <a href="../detail/{{ p.id }}">
-            <div class="polaroid">
-                <img src="{{ p.photo.url }}" style="width: 100%">
-                <div class="container">
-                    <p>{{ p.city }}</p>
+                <div class="polaroid">
+                    <img src="{{ p.photo.url }}" style="width: 100%">
+                    <div class="container">
+                        <p>{{ p.city }}</p>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
         </div>
         {% endfor %}
     </div>
